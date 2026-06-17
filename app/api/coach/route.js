@@ -1,3 +1,4 @@
+import { analyzeScenario } from "@/lib/ai/coach";
 export async function POST(request) {
     const body = await request.json();
     if (!body.scenario) {
@@ -12,18 +13,7 @@ export async function POST(request) {
       }
     console.log(body);
     const scenario = body.scenario;
-  
-    let suggestion = "";
-  
-    if (scenario.includes("جیغ")) {
-      suggestion = "آرام بمانید و احساس کودک را نام‌گذاری کنید.";
-    } else if (scenario.includes("خواب")) {
-      suggestion = "یک روتین خواب ثابت ایجاد کنید.";
-    } else {
-      suggestion = "ابتدا علت رفتار کودک را بررسی کنید.";
-    }
-  
-    return Response.json({
-      suggestion,
-    });
+  const result = analyzeScenario(scenario);
+return Response.json(result);
+   
   }
